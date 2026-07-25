@@ -1,0 +1,17 @@
+[Unit]
+Description=Discord Pi Server Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Note: Running as root is required here to allow the bot to execute host-level reboots, query the docker daemon socket, and read hardware thermal zones.
+User=root
+WorkingDirectory=/home/<YOUR_USERNAME>/pi-bot
+Environment="DISCORD_TOKEN=YOUR_BOT_TOKEN_HERE"
+ExecStart=/home/<YOUR_USERNAME>/pi-bot/pi-bot-env/bin/python /home/<YOUR_USERNAME>/pi-bot/pi-bot.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
